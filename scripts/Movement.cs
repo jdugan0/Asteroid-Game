@@ -12,7 +12,6 @@ public partial class Movement : CharacterBody2D
     [Export]
     public float ArmRadius { get; private set; } = 100f;
     private Vector2? grabPos = null;
-    private Vector2 initalPos;
 
     [Export]
     public Node2D ArmPivot;
@@ -57,12 +56,7 @@ public partial class Movement : CharacterBody2D
 
         if (Input.IsActionJustPressed("grab") && onSurface)
         {
-            grabPos = mousePos;
-            initalPos =
-                ArmPivot.GlobalPosition.DistanceTo(grabPoint) > ArmRadius
-                    ? ArmPivot.GlobalPosition
-                        + mouseDir * (ArmPivot.GlobalPosition.DistanceTo(grabPoint) - ArmRadius)
-                    : ArmPivot.GlobalPosition;
+            grabPos = grabPoint;
         }
         if (Input.IsActionJustReleased("grab"))
         {
@@ -70,12 +64,13 @@ public partial class Movement : CharacterBody2D
         }
         if (grabPos != null)
         {
-            Vector2 target = initalPos - (mousePos - grabPos.Value);
-            if (target.DistanceTo(initalPos) > ArmRadius)
+            Vector2 fromAnchor = grabPos.Value - mousePos;
+            if (fromAnchor.Length() > ArmRadius)
             {
-                target = initalPos + (target - initalPos).Normalized() * ArmRadius;
+                fromAnchor = fromAnchor.Normalized() * ArmRadius;
             }
-            Velocity = (target - ArmPivot.GlobalPosition) * PullStiffness;
+            Vector2 desired = grabPos.Value + fromAnchor;
+            Velocity = (desired - ArmPivot.GlobalPosition) * PullStiffness;
         }
 
         MoveAndSlide();
