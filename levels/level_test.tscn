@@ -1,3 +1,11 @@
 [gd_scene format=3 uid="uid://dkqwtr4rnmqrm"]
 
+[ext_resource type="PackedScene" uid="uid://b1nidoy0ak3fe" path="res://scenes/Player.tscn" id="1_iho50"]
+[ext_resource type="PackedScene" uid="uid://cfcagytlg7ftq" path="res://scenes/ColSprite.tscn" id="2_3wh16"]
+
 [node name="LevelTest" type="Node2D" unique_id=1062619829]
+
+[node name="Player" parent="." unique_id=2090118572 instance=ExtResource("1_iho50")]
+
+[node name="Sprite2D" parent="." unique_id=1121661020 instance=ExtResource("2_3wh16")]
+position = Vector2(15, -9)

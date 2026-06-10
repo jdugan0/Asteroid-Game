@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dfilwjvdnskw3"]
+
+[ext_resource type="Script" uid="uid://drbv8xy6u6lx6" path="res://scripts/Debugger.cs" id="1_la6br"]
+
+[node name="Debugger" type="Node2D" unique_id=222862095]
+script = ExtResource("1_la6br")
+Debug = true

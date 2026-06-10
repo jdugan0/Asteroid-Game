@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b1nidoy0ak3fe"]
+
+[ext_resource type="Script" uid="uid://cipt2s0oehyjd" path="res://scripts/Movement.cs" id="1_p0vlq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
+size = Vector2(50, 150)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5q5h1"]
+size = Vector2(50, 150)
+
+[node name="Player" type="CharacterBody2D" unique_id=2090118572 node_paths=PackedStringArray("ArmPivot")]
+script = ExtResource("1_p0vlq")
+ThrustForce = 50.0
+ArmRadius = 80.0
+ArmPivot = NodePath("ArmPivot")
+HasThrusters = true
+PullStiffness = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1609024775]
+shape = SubResource("RectangleShape2D_5q5h1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2040360476]
+texture = SubResource("PlaceholderTexture2D_5q5h1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2127655006]
+ignore_rotation = false
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="ArmPivot" type="Node2D" parent="." unique_id=2010292125]
+position = Vector2(-1, -27)
