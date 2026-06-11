@@ -63,13 +63,19 @@ public partial class CollisionSprite : Sprite2D
         {
             for (int i = 0; i < poly.Length; i++)
                 poly[i] += origin;
+            var occNode = new LightOccluder2D
+            {
+                Occluder = new OccluderPolygon2D { Polygon = poly },
+            };
             var polyNode = new CollisionPolygon2D
             {
                 Polygon = poly,
                 BuildMode = CollisionPolygon2D.BuildModeEnum.Solids,
             };
             body.AddChild(polyNode);
+            body.AddChild(occNode);
             polyNode.Owner = root;
+            occNode.Owner = root;
         }
     }
 }

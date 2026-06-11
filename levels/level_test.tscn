@@ -9,3 +9,6 @@
 
 [node name="Sprite2D" parent="." unique_id=1121661020 instance=ExtResource("2_3wh16")]
 position = Vector2(15, -9)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1811974895]
+color = Color(0, 0, 0, 1)

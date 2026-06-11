@@ -22,6 +22,9 @@ public partial class Movement : CharacterBody2D
     [Export]
     public float PullStiffness = 1f;
 
+    [Export]
+    private float MaxVelocity = 100;
+
     public override void _Ready()
     {
         Debugger.instance.player = this;
@@ -71,6 +74,10 @@ public partial class Movement : CharacterBody2D
             }
             Vector2 desired = grabPos.Value + fromAnchor;
             Velocity = (desired - ArmPivot.GlobalPosition) * PullStiffness;
+            if (Velocity.Length() > MaxVelocity)
+            {
+                Velocity = Velocity.Normalized() * MaxVelocity;
+            }
         }
 
         MoveAndSlide();
