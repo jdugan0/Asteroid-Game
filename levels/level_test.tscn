@@ -7,6 +7,7 @@
 [node name="LevelTest" type="Node2D" unique_id=1062619829]
 
 [node name="Player" parent="." unique_id=2090118572 node_paths=PackedStringArray("tether") instance=ExtResource("1_iho50")]
+position = Vector2(31, -135)
 collision_mask = 3
 tether = NodePath("../Tether")
 
@@ -17,4 +18,4 @@ position = Vector2(15, -9)
 color = Color(0, 0, 0, 1)
 
 [node name="Tether" parent="." unique_id=1416366749 instance=ExtResource("3_4w0vo")]
-position = Vector2(-87, -12)
+position = Vector2(-101, -211)
