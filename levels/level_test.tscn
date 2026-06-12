@@ -2,13 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://b1nidoy0ak3fe" path="res://scenes/Player.tscn" id="1_iho50"]
 [ext_resource type="PackedScene" uid="uid://cfcagytlg7ftq" path="res://scenes/ColSprite.tscn" id="2_3wh16"]
+[ext_resource type="PackedScene" uid="uid://b1hfsjcyqxltd" path="res://scenes/Tether.tscn" id="3_4w0vo"]
 
 [node name="LevelTest" type="Node2D" unique_id=1062619829]
 
 [node name="Player" parent="." unique_id=2090118572 instance=ExtResource("1_iho50")]
+collision_mask = 3
 
 [node name="Sprite2D" parent="." unique_id=1121661020 instance=ExtResource("2_3wh16")]
 position = Vector2(15, -9)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1811974895]
 color = Color(0, 0, 0, 1)
+
+[node name="Tether" parent="." unique_id=1416366749 instance=ExtResource("3_4w0vo")]
+position = Vector2(-87, -12)

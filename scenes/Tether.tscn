@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b1hfsjcyqxltd"]
+
+[ext_resource type="Script" uid="uid://bb7leyqoypad2" path="res://scripts/Tether.cs" id="1_hcaui"]
+
+[node name="Tether" type="Node2D" unique_id=1416366749]
+script = ExtResource("1_hcaui")

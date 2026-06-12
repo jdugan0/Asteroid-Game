@@ -28,6 +28,7 @@ public partial class Movement : CharacterBody2D
     public override void _Ready()
     {
         Debugger.instance.player = this;
+        GameManager.player = this;
     }
 
     public override void _PhysicsProcess(double delta)

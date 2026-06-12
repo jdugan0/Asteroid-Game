@@ -53,7 +53,12 @@ public partial class CollisionSprite : Sprite2D
         bmp.CreateFromImageAlpha(img, AlphaThreshold);
 
         var root = GetTree().EditedSceneRoot;
-        var body = new StaticBody2D { Name = BodyName, InputPickable = true };
+        var body = new StaticBody2D
+        {
+            Name = BodyName,
+            InputPickable = true,
+            CollisionLayer = 2,
+        };
         AddChild(body);
         body.Owner = root;
 
