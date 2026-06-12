@@ -6,8 +6,9 @@
 
 [node name="LevelTest" type="Node2D" unique_id=1062619829]
 
-[node name="Player" parent="." unique_id=2090118572 instance=ExtResource("1_iho50")]
+[node name="Player" parent="." unique_id=2090118572 node_paths=PackedStringArray("tether") instance=ExtResource("1_iho50")]
 collision_mask = 3
+tether = NodePath("../Tether")
 
 [node name="Sprite2D" parent="." unique_id=1121661020 instance=ExtResource("2_3wh16")]
 position = Vector2(15, -9)

@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
 using Godot;
 
 public partial class Movement : CharacterBody2D
@@ -24,6 +26,12 @@ public partial class Movement : CharacterBody2D
 
     [Export]
     private float MaxVelocity = 100;
+
+    [Export]
+    Tether tether;
+
+    [Export]
+    float RopePullForce;
 
     public override void _Ready()
     {
@@ -61,6 +69,8 @@ public partial class Movement : CharacterBody2D
         if (Input.IsActionJustPressed("grab") && onSurface)
         {
             grabPos = grabPoint;
+            tether.ResetTether(grabPoint);
+            GD.Print(tether.RopeLength());
         }
         if (Input.IsActionJustReleased("grab"))
         {
@@ -80,7 +90,11 @@ public partial class Movement : CharacterBody2D
                 Velocity = Velocity.Normalized() * MaxVelocity;
             }
         }
-
+        if (tether.RopeLength() > tether.MaxLength)
+        {
+            Velocity -=
+                tether.RopeDir() * (tether.RopeLength() - tether.MaxLength) * RopePullForce * dt;
+        }
         MoveAndSlide();
     }
 

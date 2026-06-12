@@ -10,6 +10,12 @@ public partial class Tether : Node2D
 
     public override void _Ready() => pivots.Add(GlobalPosition);
 
+    [Export]
+    public float MaxLength;
+
+    [Export]
+    public float Width;
+
     Godot.Collections.Dictionary Cast(Vector2 from, Vector2 to)
     {
         var dir = (to - from).Normalized();
@@ -21,7 +27,7 @@ public partial class Tether : Node2D
     public override void _PhysicsProcess(double delta)
     {
         var player = GameManager.player.GlobalPosition;
-
+        GD.Print(pivots.Count);
         while (pivots.Count > 1 && Cast(pivots[^2], player).Count == 0)
             pivots.RemoveAt(pivots.Count - 1);
 
@@ -44,7 +50,11 @@ public partial class Tether : Node2D
         for (int i = 0; i < pivots.Count; i++)
             pts[i] = ToLocal(pivots[i]);
         pts[^1] = ToLocal(GameManager.player.GlobalPosition);
-        DrawPolyline(pts, Colors.Black, 10);
+        DrawPolyline(
+            pts,
+            Colors.Black,
+            RopeLength() > MaxLength ? Width / (0.01f * (RopeLength() - MaxLength) + 1) : Width
+        );
     }
 
     float Winding(Vector2[] p)
@@ -96,5 +106,26 @@ public partial class Tether : Node2D
         if (IsConvex(p, i1, winding))
             return p[i1];
         return null;
+    }
+
+    public float RopeLength()
+    {
+        float dist = 0;
+        for (int i = 0; i < pivots.Count - 1; i++)
+            dist += pivots[i].DistanceTo(pivots[i + 1]);
+        return dist + pivots[^1].DistanceTo(GameManager.player.GlobalPosition);
+    }
+
+    public Vector2 RopeDir()
+    {
+        return (GameManager.player.GlobalPosition - pivots[^1]).Normalized();
+    }
+
+    public void ResetTether(Vector2 pos)
+    {
+        GlobalPosition = pos;
+        pivots.Clear();
+        pivots.Add(GlobalPosition);
+        QueueRedraw();
     }
 }
