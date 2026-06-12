@@ -11,10 +11,15 @@ public partial class Tether : Node2D
     public override void _Ready() => pivots.Add(GlobalPosition);
 
     [Export]
-    public float MaxLength;
+    private float MaxLength;
 
     [Export]
     public float Width;
+
+    float LengthOffset = 0;
+
+    [Export]
+    float TetherSpeed;
 
     Godot.Collections.Dictionary Cast(Vector2 from, Vector2 to)
     {
@@ -42,6 +47,18 @@ public partial class Tether : Node2D
                 pivots.Add(vv);
         }
         QueueRedraw();
+        if (Input.IsActionJustPressed("tether"))
+        {
+            LengthOffset = (MaxLength - RopeLength());
+        }
+        if (Input.IsActionPressed("tether"))
+        {
+            LengthOffset += TetherSpeed * (float)delta;
+        }
+        if (Input.IsActionJustReleased("tether"))
+        {
+            LengthOffset = 0;
+        }
     }
 
     public override void _Draw()
@@ -53,8 +70,15 @@ public partial class Tether : Node2D
         DrawPolyline(
             pts,
             Colors.Black,
-            RopeLength() > MaxLength ? Width / (0.01f * (RopeLength() - MaxLength) + 1) : Width
+            RopeLength() > GetMaxLength()
+                ? Width / (0.01f * (RopeLength() - GetMaxLength()) + 1)
+                : Width
         );
+    }
+
+    public float GetMaxLength()
+    {
+        return Math.Max(0, MaxLength - LengthOffset);
     }
 
     float Winding(Vector2[] p)

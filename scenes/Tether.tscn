@@ -6,3 +6,4 @@
 script = ExtResource("1_hcaui")
 MaxLength = 200.0
 Width = 10.0
+TetherSpeed = 25.0

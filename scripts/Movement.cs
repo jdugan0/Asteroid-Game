@@ -90,10 +90,13 @@ public partial class Movement : CharacterBody2D
                 Velocity = Velocity.Normalized() * MaxVelocity;
             }
         }
-        if (tether.RopeLength() > tether.MaxLength)
+        if (tether.RopeLength() > tether.GetMaxLength())
         {
             Velocity -=
-                tether.RopeDir() * (tether.RopeLength() - tether.MaxLength) * RopePullForce * dt;
+                tether.RopeDir()
+                * (tether.RopeLength() - tether.GetMaxLength())
+                * RopePullForce
+                * dt;
         }
         MoveAndSlide();
     }
